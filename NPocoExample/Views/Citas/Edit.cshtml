@@ -1,0 +1,99 @@
+﻿@model NPocoExample.Models.Cita
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cita</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hora, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hora, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Hora, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Doctor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <select id="Doctor_Id" name="Doctor_Id" class="form-control">
+                    @foreach (var item in ViewBag.doctores)
+                    {
+                        if (Model.Doctor_Id == @item.Id)
+                        {
+                            <option name="Doctor_Id" selected value="@item.Id">@item.Nombre</option>
+                        }
+                        else {
+                            <option name="Doctor_Id" value="@item.Id">@item.Nombre</option>
+                        }
+
+                    }
+
+                </select>
+                @Html.ValidationMessageFor(model => model.Doctor.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Paciente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <select id="Paciente_Id" name="Paciente_Id" class="form-control">
+                    @foreach (var item in ViewBag.Pacientes)
+                    {
+                        if (Model.Paciente_Id == @item.Id)
+                        {
+                            <option name="Paciente_Id" selected value="@item.Id">@item.Nombre</option>
+                        }
+                        else {
+                            <option name="Paciente_Id" value="@item.Id">@item.Nombre</option>
+                        }
+                    }
+
+                </select>
+                @Html.ValidationMessageFor(model => model.Paciente.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lugar, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lugar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lugar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
